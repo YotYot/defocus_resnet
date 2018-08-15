@@ -30,6 +30,7 @@ from official.utils.flags import core as flags_core
 from official.utils.logs import logger
 import resnet_model
 import resnet_run_loop
+from resources_out import RESOURCES_OUT_DIR
 
 _HEIGHT = 32
 _WIDTH = 32
@@ -271,7 +272,7 @@ def define_cifar_flags():
   resnet_run_loop.define_resnet_flags()
   flags.adopt_module_key_flags(resnet_run_loop)
   flags_core.set_defaults(data_dir='/home/yotamg/data/rgb/train',
-                          model_dir='/home/yotamg/tf-restnet/resources_out/',
+                          model_dir=RESOURCES_OUT_DIR,
                           resnet_size='32',
                           train_epochs=2500,
                           epochs_between_evals=10,
@@ -328,7 +329,7 @@ def main(_):
   conf_matrix.compute_conf_matrix()
   print (conf_matrix.conf_matrix)
   print (conf_matrix.get_conf_matrix_stats())
-  conf_matrix.save_conf_matrix('/home/yotamg/tf-restnet/conf_matrix.npy')
+  conf_matrix.save_conf_matrix(os.path.join(RESOURCES_OUT_DIR, 'conf_matrix.npy'))
 
 
 if __name__ == '__main__':
